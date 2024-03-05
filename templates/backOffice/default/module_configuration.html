@@ -1,0 +1,174 @@
+{if isset($smarty.get.tab)}
+    {$tab=$smarty.get.tab}
+{else}
+    {$tab='test'}
+{/if}
+{if isset($smarty.get.lang)}
+    {$locale=$smarty.get.lang}
+{else}
+    {$locale="fr_FR"}
+{/if}
+<style>
+    input[type=number]
+    {
+        min-width:100px;
+    }
+</style>
+
+{block name="after-admin-css"}
+    {hook name="easydatatablemanager.css" location="easydatatablemanager-css" }
+{/block}
+
+{block name="after-bootstrap-css"} {/block}
+
+{block name="main-content"}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="general-block-decorator">
+                <div class="row">
+                    <div class="col-md-12">
+                        <ul id="tabbed-menu" class="nav nav-tabs">
+                            <li class="{if $tab eq "config"}active{/if}"><a data-toggle="tab" href="#config">{intl l="Configuration" d='clicksend.bo.default'}</a> </li>
+                            <li class="{if $tab eq "email"}active{/if}"><a data-toggle="tab" href="#email">{intl l="Email Parameters" d='clicksend.bo.default'}</a> </li>
+                            <li class="{if $tab eq "test"}active{/if}"><a data-toggle="tab" href="#test">{intl l="Test Click Send" d='clicksend.bo.default'}</a> </li>
+                        </ul>
+
+                        <div class="tab-content">
+                            <div id="config" class="tab-pane {if $tab eq "config"}active{/if} form-container">
+                                <br>
+
+                                <div class="title">
+                                    {intl l="ClickSend configuration" d='clicksend.bo.default'}
+                                </div>
+
+                                {form name="clicksend_form_configuration_form"}
+                                    <form method="POST" action="{url path="/admin/module/ClickSend/configuration"}" {form_enctype} >
+
+                                        {render_form_field field="success_url" value={url path='/admin/module/ClickSend'}}
+                                        {render_form_field field="error_url" value={url path='/admin/module/clicksend'}}
+
+                                        {form_hidden_fields}
+
+                                        {if $form_error}
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="alert alert-danger">{$form_error_message}</div>
+                                                </div>
+                                            </div>
+                                        {/if}
+
+                                        <div class="col-md-6">
+                                            {render_form_field field='api_username'}
+                                            {render_form_field field='api_key'}
+                                            <button type="submit" class="btn btn-success" >{intl l="Save Configuration" d="clicksend.bo.default"}</button>
+                                        </div>
+                                    </form>
+                                {/form}
+                            </div>
+
+                            <div id="email" class="tab-pane {if $tab eq "email"}active{/if} form-container">
+                                <br>
+
+                                <div class="title">
+                                    {intl l="ClickSend Email Parameters" d='clicksend.bo.default'}
+                                </div>
+
+                                {form name="clicksend_form_email_parameter_form"}
+                                    <form method="POST" action="{url path="/admin/module/ClickSend/email/parameter"}" {form_enctype} >
+
+                                        {render_form_field field="success_url" value={url path='/admin/module/ClickSend'}}
+                                        {render_form_field field="error_url" value={url path='/admin/module/clicksend'}}
+
+                                        {form_hidden_fields}
+
+                                        {if $form_error}
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="alert alert-danger">{$form_error_message}</div>
+                                                </div>
+                                            </div>
+                                        {/if}
+
+                                        <div class="col-md-6">
+                                            {render_form_field field='email_address'}
+                                            <button type="submit" class="btn btn-success" >{intl l="Save Email Parameters" d="clicksend.bo.default"}</button>
+                                        </div>
+                                        <div class="col-md-3">
+                                            {render_form_field field='email_address_id'}
+                                        </div>
+                                    </form>
+                                {/form}
+                            </div>
+
+                            <div id="test" class="tab-pane {if $tab eq "test"}active{/if} form-container">
+                                <br>
+
+                                <div class="col-md-6">
+                                    <div class="title">
+                                        {intl l="ClickSend Send SMS Test" d='clicksend.bo.default'}
+                                    </div>
+
+                                    {form name="clicksend_form_send_sms_form"}
+                                        <form method="POST" action="{url path="/admin/module/ClickSend/sms/send"}" {form_enctype} >
+
+                                            {render_form_field field="success_url" value={url path='/admin/module/ClickSend'}}
+                                            {render_form_field field="error_url" value={url path='/admin/module/clicksend'}}
+
+                                            {form_hidden_fields}
+
+                                            {if $form_error}
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="alert alert-danger">{$form_error_message}</div>
+                                                    </div>
+                                                </div>
+                                            {/if}
+
+                                            <div class="">
+                                                {render_form_field field='phone'}
+                                                <button type="submit" class="btn btn-success" >{intl l="ClickSend Send SMS Test" d="clicksend.bo.default"}</button>
+                                            </div>
+                                        </form>
+                                    {/form}
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="title">
+                                        {intl l="ClickSend Send Email Test" d='clicksend.bo.default'}
+                                    </div>
+
+                                    {form name="clicksend_form_send_email_form"}
+                                        <form method="POST" action="{url path="/admin/module/ClickSend/email/send"}" {form_enctype} >
+
+                                            {render_form_field field="success_url" value={url path='/admin/module/ClickSend'}}
+                                            {render_form_field field="error_url" value={url path='/admin/module/clicksend'}}
+
+                                            {form_hidden_fields}
+
+                                            {if $form_error}
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="alert alert-danger">{$form_error_message}</div>
+                                                    </div>
+                                                </div>
+                                            {/if}
+
+                                            <div class="">
+                                                {render_form_field field='email'}
+                                                <button type="submit" class="btn btn-success" >{intl l="ClickSend Send Email Test" d="clicksend.bo.default"}</button>
+                                            </div>
+                                        </form>
+                                    {/form}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{/block}
+
+{block name="javascript-initialization"}
+    {hook name="easydatatablemanager.js" location="easydatatablemanager-js" }
+{/block}

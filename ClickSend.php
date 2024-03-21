@@ -15,6 +15,7 @@ class ClickSend extends BaseModule
 
     public const API_USERNAME_CONFIG_KEY = "clicksend.api.username";
     public const API_KEY_CONFIG_KEY = "clicksend.api.key";
+    public const IS_TEST = "clicksend.is.test";
 
     public const EMAIL_ADDRESS_CONFIG_KEY = "clicksend.email.address";
     public const EMAIL_ID_CONFIG_KEY = "clicksend.email.id";

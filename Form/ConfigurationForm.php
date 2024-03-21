@@ -3,6 +3,7 @@
 namespace ClickSend\Form;
 
 use ClickSend\ClickSend;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Thelia\Core\Translation\Translator;
@@ -30,6 +31,15 @@ class ConfigurationForm extends BaseForm
                     new NotBlank()
                 ],
                 "data" => ClickSend::getConfigValue(ClickSend::API_KEY_CONFIG_KEY)
+            ])
+            ->add("is_test", CheckboxType::class, [
+                "label" => $translator?->trans("Is Test ?", [], ClickSend::DOMAIN_NAME),
+                "required" => false,
+                'label_attr' => [
+                    'for' => 'is_test',
+                    'help' => Translator::getInstance()?->trans("Don't send SMS to ClickSend (use it on local and dev environment)", [], ClickSend::DOMAIN_NAME),
+                ],
+                "data" => (bool)ClickSend::getConfigValue(ClickSend::IS_TEST)
             ])
         ;
     }

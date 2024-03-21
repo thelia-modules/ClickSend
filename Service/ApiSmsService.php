@@ -5,6 +5,8 @@ namespace ClickSend\Service;
 use ClickSend\ApiException;
 use ClickSend\ClickSend as ModuleClickSend;
 use ClickSend;
+use Thelia\Core\Translation\Translator;
+use Thelia\Log\Tlog;
 
 class ApiSmsService
 {
@@ -37,6 +39,11 @@ class ApiSmsService
      */
     public function sendSms(array $messages)
     {
+        if (ClickSend\ClickSend::IS_TEST) {
+            Tlog::getInstance()->info(Translator::getInstance()->trans('Your module ClickSend is in test mode, your sms was not send to ClickSend'));
+            return [];
+        }
+
         $body = new ClickSend\Model\SmsMessageCollection();
         $body->setMessages($messages);
 

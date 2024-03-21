@@ -32,6 +32,7 @@ class ConfigurationController extends AdminController
 
             ClickSend::setConfigValue(ClickSend::API_USERNAME_CONFIG_KEY, $data["api_username"]);
             ClickSend::setConfigValue(ClickSend::API_KEY_CONFIG_KEY, $data["api_key"]);
+            ClickSend::setConfigValue(ClickSend::IS_TEST, $data["is_test"]);
 
             $apiAccountService->getAccount();
 

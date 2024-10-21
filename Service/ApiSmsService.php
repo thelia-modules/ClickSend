@@ -39,7 +39,7 @@ class ApiSmsService
      */
     public function sendSms(array $messages)
     {
-        if (ClickSend\ClickSend::IS_TEST) {
+        if (ClickSend\ClickSend::isTestMode()) {
             Tlog::getInstance()->info(Translator::getInstance()->trans('Your module ClickSend is in test mode, your sms was not send to ClickSend'));
             return [];
         }

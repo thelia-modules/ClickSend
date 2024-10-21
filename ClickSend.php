@@ -27,6 +27,11 @@ class ClickSend extends BaseModule
      * Have fun !
      */
 
+    public static function isTestMode():bool
+    {
+        return ClickSend::getConfigValue(self::IS_TEST, false);
+    }
+
     /**
      * Defines how services are loaded in your modules
      *
